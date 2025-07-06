@@ -5,9 +5,14 @@ from .formatter import format_flight
 
 def main():
     lat, lon = get_location()
-    flights = get_flights_overhead(lat, lon)
+    if lat is None or lon is None:
+        print("Could not determine location.")
+        return
 
+    flights = get_flights_overhead(lat, lon)
     if not flights:
         print("There are no flights currently overhead.")
+        return
+
     for flight in flights:
         print(format_flight(flight))
